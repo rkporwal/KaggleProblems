@@ -1,9 +1,9 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import seaborn as sns
 import matplotlib
 from sklearn.model_selection import train_test_split
+
 # importing dataset
 dataset=pd.read_csv("Bengaluru_House_Data.csv")
 
@@ -11,6 +11,7 @@ dataset=pd.read_csv("Bengaluru_House_Data.csv")
 ## data exploratation
 dataset.shape
 dataset.head()
+dataset.info()
 
 dataset.groupby(['area_type'])['area_type'].agg('count')
 
@@ -22,6 +23,7 @@ df2.isnull().sum()
 df2['size'].unique()
 
 df3 = df2.dropna()
+df3.isnull().sum()
 
 df3['bhk']=df3['size'].apply(lambda x: int(x.split(' ')[0]))
 
@@ -38,6 +40,7 @@ def is_float(x):
 
 df3[~df3['total_sqft'].apply(is_float)].head(10)
 
+df3['total_sqft'].apply(is_float)
 
 def convert_sqft_to_num(x):
     tokens = x.split('-')
@@ -139,7 +142,7 @@ df8.shape
 
 plot_scatter_chart(df8,"Rajaji Nagar")
 
-import matplotlib
+
 matplotlib.rcParams["figure.figsize"] = (20,10)
 plt.hist(df8.price_per_sqft,rwidth=0.8)
 plt.xlabel("Price Per Square Feet")
@@ -180,7 +183,7 @@ X.head(3)
 y = df12.price
 y.head(3)
 
-from sklearn.model_selection import train_test_split
+
 X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.2,random_state=10)
 
 
